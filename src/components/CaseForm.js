@@ -6,70 +6,25 @@ import { Container, Header, Content, Card, CardItem, Text, Icon, Right, Left, Bu
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { AppStyles } from "../AppStyles";
-import DateTimePicker from '@react-native-community/datetimepicker';
+import {GridField, TextField, RadioField, DateTimeComp, DropDownField} from './fields';
+
 
 function FormField({fieldData}){
     const [show, setShow] = useState(false);
     if(fieldData.type){
         switch(fieldData.type){
+            //Title field
             case "title": return (<Text>{fieldData.label}</Text>);
-            case "text": return (
-                <View style={styles.InputContainer}>
-                <TextInput
-                  style={styles.body}
-                  placeholder={fieldData.placeholder}
-                  placeholderTextColor={AppStyles.color.grey}
-                  underlineColorAndroid="transparent"
+            case "text": return (<TextField data={fieldData}/>);
 
-                />
-              </View>
-            );
-            case "dropdown": return (
-            <View>
-                <Picker mode="dropdown" placeholder={fieldData.label}>
-                    <Picker.Item style={{color: "grey"}} label={fieldData.label} enable={false} value={null}/>
-                    {fieldData.options.map((pickerItem, key)=><Picker.Item key={key} label={pickerItem.label} value={pickerItem.value}/>)}
-                </Picker>
-            </View>
-            );
+            case "radio" : return (<RadioField data={fieldData}/>);
+            case "grid": return (<GridField data={fieldData}/>);
+
+            // Picker
+            case "dropdown": return (<DropDownField data={fieldData}/>);
             case "button" : return (<Button style={{justifyContent: "center"}} success><Text>{fieldData.name}</Text></Button>);
             case "submit" : return (<Button style={{justifyContent: "center"}} success><Text>{fieldData.name}</Text></Button>);
-            case "datetime": {
-                let date = new Date(Date.now());
-                console.log(date);
-                if(fieldData.variable.includes("date")){
-                    return(
-                    <View>
-                        <Item>
-                        <Text>{fieldData.label}</Text>
-                        <TouchableOpacity onPress={()=>{setShow(true);}}><Icon name="calendar"/></TouchableOpacity>
-                        </Item>
-                        {show && (<DateTimePicker
-                            value={date}
-                            mode="date"
-                            is24Hour={true}
-                            display="spinner"
-                            onChange={()=>setShow(false)}
-                        />)}
-                    </View>
-                    );
-                }else{
-                    return (
-                        <View>
-                        <Item>
-                        <Text>{fieldData.label}</Text>
-                        <TouchableOpacity onPress={()=>{setShow(true);}}><Icon name="time"/></TouchableOpacity>
-                        </Item>
-                        {show && (<DateTimePicker
-                            value={new Date()}
-                            mode="time"
-                            display="spinner"
-                            onChange={()=>setShow(false)}
-                        />)}
-                    </View>
-                    )
-                }
-            }
+            case "datetime": return (<DateTimeComp data ={fieldData} />)
             default: return null;
         }
     }else{
@@ -126,7 +81,7 @@ class CaseForm extends React.Component{
             <ScrollView>
                 {
                     formData.map((field, key)=>
-                    <FormField key={key} fieldData={field}/>      
+                    <FormField key={key} fieldData={field}/>   
                     )
                 }
            </ScrollView>
