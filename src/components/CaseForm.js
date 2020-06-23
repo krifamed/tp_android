@@ -6,32 +6,33 @@ import { Container, Header, Content, Card, CardItem, Text, Icon, Right, Left, Bu
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { AppStyles } from "../AppStyles";
-import {GridField, TextField, RadioField, DateTimeComp, DropDownField} from './fields';
+
+import FormField from './FormField';
 
 
-function FormField({fieldData}){
-    const [show, setShow] = useState(false);
-    if(fieldData.type){
-        switch(fieldData.type){
-            //Title field
-            case "title": return (<Text>{fieldData.label}</Text>);
-            case "text": return (<TextField data={fieldData}/>);
+// function FormField({fieldData}){
+//     const [show, setShow] = useState(false);
+//     if(fieldData.type){
+//         switch(fieldData.type){
+//             //Title field
+//             case "title": return (<Text>{fieldData.label}</Text>);
+//             case "text": return (<TextField data={fieldData}/>);
 
-            case "radio" : return (<RadioField data={fieldData}/>);
-            case "grid": return (<GridField data={fieldData}/>);
+//             case "radio" : return (<RadioField data={fieldData}/>);
+//             case "grid": return (<GridField data={fieldData}/>);
 
-            // Picker
-            case "dropdown": return (<DropDownField data={fieldData}/>);
-            case "button" : return (<Button style={{justifyContent: "center"}} success><Text>{fieldData.name}</Text></Button>);
-            case "submit" : return (<Button style={{justifyContent: "center"}} success><Text>{fieldData.name}</Text></Button>);
-            case "datetime": return (<DateTimeComp data ={fieldData} />)
-            default: return null;
-        }
-    }else{
-        console.log(fieldData);
-        return null
-    }
-}
+//             // Picker
+//             case "dropdown": return (<DropDownField data={fieldData}/>);
+//             case "button" : return (<Button style={{justifyContent: "center"}} success><Text>{fieldData.name}</Text></Button>);
+//             case "submit" : return (<Button style={{justifyContent: "center"}} success><Text>{fieldData.name}</Text></Button>);
+//             case "datetime": return (<DateTimeComp data ={fieldData} />)
+//             default: return null;
+//         }
+//     }else{
+//         console.log(fieldData);
+//         return null
+//     }
+// }
 
 
 class CaseForm extends React.Component{
@@ -75,13 +76,18 @@ class CaseForm extends React.Component{
         // console.log(this.state.formData);
     }
 
+    onChangeData = (text)=>{
+      console.log("hello world", text);
+
+    }
+
     render(){
         let {formData} = this.state
         return (
             <ScrollView>
                 {
                     formData.map((field, key)=>
-                    <FormField key={key} fieldData={field}/>   
+                    <FormField onChangeData={this.onChangeData.bind(this)} key={key} fieldData={field}/>   
                     )
                 }
            </ScrollView>

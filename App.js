@@ -76,7 +76,7 @@ class App extends React.Component{
             // },
           }}
         >
-          {token&&<Stack.Screen name="Login" component={LoginScreen}/>}
+          {token===null&&<Stack.Screen name="Login" component={LoginScreen}/>}
           <Stack.Screen name="Drawer" component={DrawerStack}/>
         </Stack.Navigator>
       </NavigationContainer>

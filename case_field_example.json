@@ -1,0 +1,242 @@
+[
+  {
+    "type": "image",
+    "id": "image0000000001",
+    "name": "image0000000001",
+    "label": "",
+    "hint": "",
+    "src": "https:\/\/upload.wikimedia.org\/wikipedia\/commons\/thumb\/f\/fa\/Institut_Sup%C3%A9rieur_d%27Informatique_%28logo%29.svg\/1200px-Institut_Sup%C3%A9rieur_d%27Informatique_%28logo%29.svg.png",
+    "shape": "thumbnail",
+    "alternateText": "",
+    "comment": "",
+    "mode": "parent",
+    "alt": "",
+    "colSpan": 2
+  },
+  {
+    "colSpan": 3
+  },
+  {
+    "type": "title",
+    "id": "title0000000001",
+    "label": "Recherche de sujet selon le choix",
+    "colSpan": 4
+  },
+  {
+    "colSpan": 3
+  },
+  {
+    "colSpan": 2
+  },
+  {
+    "type": "title",
+    "id": "title0000000003",
+    "label": "Liste sujets sans encadrants:",
+    "colSpan": 10
+  },
+  {
+    "colSpan": 1
+  },
+  {
+    "type": "grid",
+    "variable": "liste_sujet",
+    "var_uid": "8371245155e8f9eeca80834011433547",
+    "dataType": "grid",
+    "protectedValue": false,
+    "id": "liste_sujet",
+    "name": "liste_sujet",
+    "label": "",
+    "hint": "",
+    "required": false,
+    "columns": [
+      {
+        "type": "text",
+        "variable": "",
+        "var_uid": "",
+        "dataType": "",
+        "protectedValue": false,
+        "id": "intitule",
+        "name": "intitule",
+        "label": "sujets",
+        "defaultValue": "",
+        "placeholder": "",
+        "hint": "",
+        "required": false,
+        "textTransform": "none",
+        "validate": "",
+        "validateMessage": "",
+        "maxLength": 1000,
+        "formula": "",
+        "mode": "parent",
+        "operation": "",
+        "dbConnection": "1590591815caf477882ba06054743348",
+        "dbConnectionLabel": "[localhost:3306] mysql: ISI_BUSINESS_DATA",
+        "sql": "",
+        "columnWidth": "30",
+        "width": 100,
+        "title": "sujets"
+      },
+      {
+        "type": "text",
+        "variable": "",
+        "var_uid": "",
+        "dataType": "",
+        "protectedValue": false,
+        "id": "objectif",
+        "name": "objectif",
+        "label": "Description du sujet",
+        "defaultValue": "",
+        "placeholder": "",
+        "hint": "",
+        "required": false,
+        "textTransform": "none",
+        "validate": "",
+        "validateMessage": "",
+        "maxLength": 1000,
+        "formula": "",
+        "mode": "parent",
+        "operation": "",
+        "dbConnection": "workflow",
+        "dbConnectionLabel": "PM Database",
+        "sql": "",
+        "columnWidth": "40",
+        "width": 100,
+        "title": "Description du sujet"
+      },
+      {
+        "type": "text",
+        "variable": "",
+        "var_uid": "",
+        "dataType": "",
+        "protectedValue": false,
+        "id": "societe",
+        "name": "societe",
+        "label": "Entreprise d'acceuil",
+        "defaultValue": "",
+        "placeholder": "",
+        "hint": "",
+        "required": false,
+        "textTransform": "none",
+        "validate": "",
+        "validateMessage": "",
+        "maxLength": 1000,
+        "formula": "",
+        "mode": "parent",
+        "operation": "",
+        "dbConnection": "workflow",
+        "dbConnectionLabel": "PM Database",
+        "sql": "",
+        "columnWidth": "30",
+        "width": 100,
+        "title": "Entreprise d'acceuil"
+      }
+    ],
+    "data": [],
+    "mode": "parent",
+    "layout": "responsive",
+    "pageSize": "0",
+    "addRow": false,
+    "deleteRow": false,
+    "title": "",
+    "colSpan": 10
+  },
+  {
+    "colSpan": 1
+  },
+  {
+    "colSpan": 2
+  },
+  {
+    "type": "title",
+    "id": "title0000000002",
+    "label": "Effectuer choix :",
+    "colSpan": 10
+  },
+  {
+    "type": "dropdown",
+    "variable": "mot1",
+    "var_uid": "6407069885e8f9eeca83ed4069138605",
+    "dataType": "string",
+    "protectedValue": false,
+    "id": "mot1",
+    "name": "mot1",
+    "label": "mots clés :",
+    "defaultValue": "",
+    "placeholder": "choisir les mots clés souhaités",
+    "hint": "",
+    "required": false,
+    "mode": "parent",
+    "datasource": "database",
+    "dbConnection": "1590591815caf477882ba06054743348",
+    "dbConnectionLabel": "[localhost:3306] mysql: ISI_BUSINESS_DATA",
+    "sql": "select id_mot,mot_cle from pfe_mots_cles",
+    "dataVariable": "",
+    "options": [],
+    "var_name": "mot1",
+    "colSpan": 7
+  },
+  {
+    "colSpan": 5
+  },
+  {
+    "type": "dropdown",
+    "variable": "tech1",
+    "var_uid": "2185542865e8f9eeca7fa64057349086",
+    "dataType": "string",
+    "protectedValue": false,
+    "id": "tech1",
+    "name": "tech1",
+    "label": "technologies:",
+    "defaultValue": "",
+    "placeholder": "choisir les technologies souhaitées",
+    "hint": "",
+    "required": false,
+    "mode": "parent",
+    "datasource": "database",
+    "dbConnection": "1590591815caf477882ba06054743348",
+    "dbConnectionLabel": "[localhost:3306] mysql: ISI_BUSINESS_DATA",
+    "sql": "SELECT `id_technologie`, `technologie` FROM `pfe_technologie` ",
+    "dataVariable": "",
+    "options": [],
+    "var_name": "tech1",
+    "colSpan": 7
+  },
+  {
+    "colSpan": 5
+  },
+  {
+    "type": "hidden",
+    "variable": "action",
+    "var_uid": "5946267505e8f9eeca7dd38034030859",
+    "dataType": "string",
+    "protectedValue": false,
+    "id": "action",
+    "name": "action",
+    "defaultValue": "",
+    "dbConnection": "workflow",
+    "dbConnectionLabel": "PM Database",
+    "sql": "",
+    "var_name": "action",
+    "colSpan": 12
+  },
+  {
+    "colSpan": 3
+  },
+  {
+    "colSpan": 4
+  },
+  {
+    "type": "button",
+    "id": "consulter",
+    "name": "consulter",
+    "label": "Consulter la liste des sujets selon mon choix",
+    "colSpan": 3
+  },
+  {
+    "type": "submit",
+    "id": "cancelcase",
+    "name": "cancelcase",
+    "label": "Quitter",
+    "colSpan": 2
+  }
+]

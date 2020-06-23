@@ -9,6 +9,12 @@ class TextField extends React.Component{
         this.state = {
             data : props.data
         }
+        this.changeData = props.changeData;
+    }
+
+    handleChange(){
+      console.log("text will change now");
+      this.changeData("hello text");
     }
     render(){
         let {data} = this.state; 
@@ -19,7 +25,7 @@ class TextField extends React.Component{
               placeholder={data.label}
               placeholderTextColor={AppStyles.color.grey}
               underlineColorAndroid="transparent"
-
+              onChange={this.handleChange.bind(this)}
             />
           </View>
         ) 

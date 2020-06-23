@@ -17,9 +17,9 @@ class GridField extends React.Component{
             <View>
                 <Text>{data.name}</Text>
                 {
-                    data.columns.map(item=>{
+                    data.columns.map((item, key)=>{
                         switch(item.type){
-                            case "text": return (<TextField data={item}/>)
+                            case "text": return (<TextField key={key} data={item}/>)
                             default : return null
                         }
                     })
