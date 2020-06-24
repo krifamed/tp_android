@@ -23,7 +23,6 @@ class DropDownField extends React.Component{
     render(){
         let {data, selectedValue} = this.state; 
         return(
-            <View>
                 <Picker
                     mode="dropdown"
                     placeholder={data.label}
@@ -35,7 +34,6 @@ class DropDownField extends React.Component{
                         <Picker.Item key={key} label={pickerItem.label} value={pickerItem.value}/>
                     )}
                 </Picker>
-            </View>
         )
     }
 }

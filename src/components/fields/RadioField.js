@@ -24,7 +24,7 @@ class RadioField extends Component {
   render() {
       const {data} = this.state;
     return (
-      <View>
+      <View style={{width: "100%"}}>
           <Text>{data.label}</Text>
           {data.options.map((item, key)=>
             <ListItem key={key}>

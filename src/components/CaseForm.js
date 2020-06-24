@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { SafeAreaView, FlatList, StyleSheet, View, TextInput, ScrollView, ToastAndroid } from "react-native";
+import { Dimensions, SafeAreaView, FlatList, StyleSheet, View, TextInput, ScrollView, ToastAndroid } from "react-native";
 
 import AsyncStorage from '@react-native-community/async-storage';
 import { Container, Header, Content, Card, CardItem, Text, Icon, Right, Left, Button, Label, Item, Picker, Toast } from 'native-base';
@@ -8,32 +8,6 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { AppStyles } from "../AppStyles";
 
 import FormField from './FormField';
-
-
-// function FormField({fieldData}){
-//     const [show, setShow] = useState(false);
-//     if(fieldData.type){
-//         switch(fieldData.type){
-//             //Title field
-//             case "title": return (<Text>{fieldData.label}</Text>);
-//             case "text": return (<TextField data={fieldData}/>);
-
-//             case "radio" : return (<RadioField data={fieldData}/>);
-//             case "grid": return (<GridField data={fieldData}/>);
-
-//             // Picker
-//             case "dropdown": return (<DropDownField data={fieldData}/>);
-//             case "button" : return (<Button style={{justifyContent: "center"}} success><Text>{fieldData.name}</Text></Button>);
-//             case "submit" : return (<Button style={{justifyContent: "center"}} success><Text>{fieldData.name}</Text></Button>);
-//             case "datetime": return (<DateTimeComp data ={fieldData} />)
-//             default: return null;
-//         }
-//     }else{
-//         console.log(fieldData);
-//         return null
-//     }
-// }
-
 
 /*
   * formData : data fields from API
@@ -115,21 +89,44 @@ class CaseForm extends React.Component{
         text: 'Form submited successfuly!',
         buttonText: 'Okay',
         type: 'success',
-        position: "top"
+        position: "top",
+        duration : 2000
       });
       this.props.navigation.goBack();
+    }else{
+          Toast.show({
+            text: 'Form submited successfuly!',
+            buttonText: 'Okay',
+            type: 'danger',
+            position: "top",
+            duration : 2000
+          });
+          this.setState({data: {}});
     }
   }
+
+  cancelSubmit(){
+    this.setState({data: {}});
+  }
+  
     render(){
         let {formData, data} = this.state
         return (
-            <ScrollView>
-                {
-                    formData.map((field, key)=>
-                    <FormField onChangeData={this.onChangeData.bind(this)} key={key} submitForm={this.submitForm.bind(this)} fieldData={field}/>   
-                    )
-                }
-           </ScrollView>
+            <SafeAreaView style={styles.container}>
+              <ScrollView stlye={styles.formField}>
+                    {
+                      formData.map((field, key)=>
+                      <FormField
+                      style={styles.formField}
+                      onChangeData={this.onChangeData.bind(this)}
+                      key={key} 
+                      submitForm={this.submitForm.bind(this)} 
+                      cancelSubmit={this.cancelSubmit}
+                      fieldData={field}/>   
+                      )
+                    }
+              </ScrollView>
+            </SafeAreaView>
         )
     }
 }
@@ -137,57 +134,14 @@ class CaseForm extends React.Component{
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      alignItems: "center"
+      alignItems: "center",
+      marginBottom : 5
     },
-    title: {
-      fontSize: AppStyles.fontSize.title,
-      fontWeight: "bold",
-      color: AppStyles.color.tint,
-      marginTop: 20,
-      marginBottom: 20
-    },
-    leftTitle: {
-      alignSelf: "stretch",
-      textAlign: "left",
-      marginLeft: 20
-    },
-    content: {
-      paddingLeft: 50,
-      paddingRight: 50,
-      textAlign: "center",
-      fontSize: AppStyles.fontSize.content,
-      color: AppStyles.color.text
-    },
-    loginContainer: {
-      width: AppStyles.buttonWidth.main,
-      backgroundColor: AppStyles.color.tint,
-      borderRadius: AppStyles.borderRadius.main,
-      padding: 10,
-      marginTop: 30,
-      justifyContent: "center"
-    },
-    loginText: {
-      color: AppStyles.color.white,
-    },
-    placeholder: {
-      fontFamily: AppStyles.fontName.text,
-      color: "red"
-    },
-    InputContainer: {
-      width: AppStyles.textInputWidth.main,
-      marginTop: 30,
-      borderWidth: 1,
-      borderStyle: "solid",
-      borderColor: AppStyles.color.grey,
-      borderRadius: AppStyles.borderRadius.main
-    },
-    body: {
-      height: 42,
-      paddingLeft: 20,
-      paddingRight: 20,
-      color: AppStyles.color.text
-    },
-  
-  });
+    formField:{
+      flex: 1,
+      width: Dimensions.get('window').width,
+      
+    }
+});
 
 export default CaseForm;

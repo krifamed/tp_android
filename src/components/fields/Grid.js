@@ -1,5 +1,5 @@
 import React from 'react';
-import {View , Text} from 'react-native';
+import {StyleSheet, View , Text} from 'react-native';
 import TextField from './TextField'
 
 class GridField extends React.Component{
@@ -13,8 +13,8 @@ class GridField extends React.Component{
     render(){
         let {data} = this.state; 
         return(
-            <View>
-                <Text>{data.name}</Text>
+            <View style={{width: "100%", alignItems: "center"}}>
+                <Text style={styles.subtitle}>{data.name}</Text>
                 {
                     data.columns.map((item, key)=>{
                         switch(item.type){
@@ -27,5 +27,15 @@ class GridField extends React.Component{
         ) 
     }
 }
+const styles=StyleSheet.create({
+    subtitle:{
+        paddingTop: 10,
+        paddingBottom:10,
+        fontSize:16,
+        color: "grey",
+        fontWeight: 'bold',
+        // width: Dimensions.get('window').width  
+    },
+});
 
 export default GridField;

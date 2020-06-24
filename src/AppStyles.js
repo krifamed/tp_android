@@ -35,6 +35,9 @@ export const AppStyles = {
   textInputWidth: {
     main: "80%"
   },
+  formFieldWidth: {
+    main: "90%"
+  },
   fontName: {
     main: "Noto Sans",
     bold: "Noto Sans"
