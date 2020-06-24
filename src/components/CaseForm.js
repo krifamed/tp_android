@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import { SafeAreaView, FlatList, StyleSheet, View, TextInput, ScrollView } from "react-native";
+import { SafeAreaView, FlatList, StyleSheet, View, TextInput, ScrollView, ToastAndroid } from "react-native";
 
 import AsyncStorage from '@react-native-community/async-storage';
-import { Container, Header, Content, Card, CardItem, Text, Icon, Right, Left, Button, Label, Item, Picker } from 'native-base';
+import { Container, Header, Content, Card, CardItem, Text, Icon, Right, Left, Button, Label, Item, Picker, Toast } from 'native-base';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { AppStyles } from "../AppStyles";
@@ -35,6 +35,11 @@ import FormField from './FormField';
 // }
 
 
+/*
+  * formData : data fields from API
+  * data : data to submit to API POST /cases 
+*/
+
 class CaseForm extends React.Component{
     constructor(props){
         super(props);
@@ -42,7 +47,8 @@ class CaseForm extends React.Component{
             case_items: props.route.params.item,
             formData: [],
             token : "",
-            dyna_uid: ""
+            dyna_uid: "",
+            data: {}
         }
     }
     async componentDidMount(){
@@ -77,17 +83,50 @@ class CaseForm extends React.Component{
     }
 
     onChangeData = (text)=>{
-      console.log("hello world", text);
+      console.log(text);
+      let dataObj = {...this.state.data, ...text};
+      // this.setState({data: dataObj});
+      this.setState((state, props)=>({
+          data : {...state.data, ...text}
+      }));
+      console.log("bla",this.state.data);
 
     }
 
+    async submitForm(){
+      console.log("submit form", this.state.data);
+      const {pro_uid, tas_uid} = this.state.case_items;
+      const req = await fetch("http://process.isiforge.tn/api/1.0/isi/cases", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            'Authorization' : `Bearer ${this.state.token}`
+          },
+        body: JSON.stringify({
+            pro_uid,
+            tas_uid,
+            variables : this.state.data
+        })
+    });
+    const res = await req.json();
+    console.log(res);
+    if(res.app_uid){
+      Toast.show({
+        text: 'Form submited successfuly!',
+        buttonText: 'Okay',
+        type: 'success',
+        position: "top"
+      });
+      this.props.navigation.goBack();
+    }
+  }
     render(){
-        let {formData} = this.state
+        let {formData, data} = this.state
         return (
             <ScrollView>
                 {
                     formData.map((field, key)=>
-                    <FormField onChangeData={this.onChangeData.bind(this)} key={key} fieldData={field}/>   
+                    <FormField onChangeData={this.onChangeData.bind(this)} key={key} submitForm={this.submitForm.bind(this)} fieldData={field}/>   
                     )
                 }
            </ScrollView>

@@ -5,15 +5,32 @@ class DropDownField extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            data: props.data
+            data: props.data,
+            selectedValue: props.data.defaultValue
         }
+        this.changeData = props.changeData;
+    }
+
+    async handleChange(itemValue, itemIndex){
+        let {data} = this.state;
+        console.log(itemValue,this.changeData);
+        await this.setState({selectedValue: itemValue});
+        let obj = {
+            [data.variable] : this.state.selectedValue
+          }
+          this.changeData(obj);
     }
     render(){
-        let {data} = this.state; 
+        let {data, selectedValue} = this.state; 
         return(
             <View>
-                <Picker mode="dropdown" placeholder={data.label}>
-                    <Picker.Item style={{color: "grey"}} label={data.label} enable={false} value={null}/>
+                <Picker
+                    mode="dropdown"
+                    placeholder={data.label}
+                    selectedValue={selectedValue}
+                    onValueChange={(itemValue, itemIndex)=>this.handleChange(itemValue, itemIndex)}
+                >
+                    <Picker.Item style={{color: "grey"}} label={data.label} enabled={false} value={null}/>
                     {data.options.map((pickerItem, key)=>
                         <Picker.Item key={key} label={pickerItem.label} value={pickerItem.value}/>
                     )}

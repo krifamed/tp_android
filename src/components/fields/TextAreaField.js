@@ -3,7 +3,7 @@ import {StyleSheet, View , Text, TextInput} from 'react-native';
 
 import {AppStyles} from '../../AppStyles';
 
-class TextField extends React.Component{
+class TextAreaField extends React.Component{
     constructor(props){
         super(props);
         this.state = {
@@ -27,6 +27,8 @@ class TextField extends React.Component{
             <View style={styles.InputContainer}>
             <TextInput
               style={styles.body}
+              multiline={true}
+              numberOfLines = {5}
               placeholder={data.label}
               placeholderTextColor={AppStyles.color.grey}
               underlineColorAndroid="transparent"
@@ -49,7 +51,7 @@ const styles = StyleSheet.create({
       borderRadius: AppStyles.borderRadius.main
     },
     body: {
-      height: 42,
+    //   height: 42,
       paddingLeft: 20,
       paddingRight: 20,
       color: AppStyles.color.text
@@ -57,4 +59,4 @@ const styles = StyleSheet.create({
   
   });
 
-export default TextField;
+export default TextAreaField;

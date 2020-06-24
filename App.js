@@ -1,5 +1,6 @@
 import React from 'react';
-import {Text} from 'react-native';
+import {Text, YellowBox} from 'react-native';
+import { Root } from 'native-base';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -61,25 +62,30 @@ class App extends React.Component{
   }
   render(){
     let token = this.state.token;
+    YellowBox.ignoreWarnings([
+      'Animated: `useNativeDriver` was not specified. This is a required option and must be explicitly set to `true` or `false`',
+    ])
     return(
-      <NavigationContainer>
-        <Stack.Navigator 
-          screenOptions={{
-            headerShown: false,
-            // headerStyle: {
-            //   backgroundColor: '#f4511e',
-            //   textAlign: "center"
-            // },
-            // headerTintColor: '#fff',
-            // headerTitleStyle: {
-            //   fontWeight: 'bold',
-            // },
-          }}
-        >
-          {token===null&&<Stack.Screen name="Login" component={LoginScreen}/>}
-          <Stack.Screen name="Drawer" component={DrawerStack}/>
-        </Stack.Navigator>
-      </NavigationContainer>
+      <Root>
+        <NavigationContainer>
+          <Stack.Navigator 
+            screenOptions={{
+              headerShown: false,
+              // headerStyle: {
+                //   backgroundColor: '#f4511e',
+                //   textAlign: "center"
+                // },
+                // headerTintColor: '#fff',
+                // headerTitleStyle: {
+                  //   fontWeight: 'bold',
+                  // },
+                }}
+                >
+            {token===null&&<Stack.Screen name="Login" component={LoginScreen}/>}
+            <Stack.Screen name="Drawer" component={DrawerStack}/>
+          </Stack.Navigator>
+        </NavigationContainer>
+      </Root>
     )
   }
 };

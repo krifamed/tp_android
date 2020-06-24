@@ -8,11 +8,17 @@ class RadioField extends Component {
             data : props.data,
             option : props.data.defaultValue
         }
+        this.changeData = props.changeData;
     }
 
-    changeOption = (value)=>{
+    changeOption = async (value)=>{
         console.log(value);
-        this.setState({option : value});
+        await this.setState({option : value});
+        let {data} = this.state;
+        let obj = {
+          [data.variable]: this.state.option
+        }
+        this.changeData(obj);
     }
     
   render() {

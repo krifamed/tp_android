@@ -8,8 +8,7 @@ class GridField extends React.Component{
         this.state = {
             data : props.data
         }
-        console.log("inside the grid component");
-        console.log(this.state.data);
+        this.changeData=props.changeData;
     }
     render(){
         let {data} = this.state; 
@@ -19,7 +18,7 @@ class GridField extends React.Component{
                 {
                     data.columns.map((item, key)=>{
                         switch(item.type){
-                            case "text": return (<TextField key={key} data={item}/>)
+                            case "text": return (<TextField changeData={this.changeData} key={key} data={item}/>)
                             default : return null
                         }
                     })
