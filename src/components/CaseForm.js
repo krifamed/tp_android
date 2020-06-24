@@ -8,7 +8,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { AppStyles } from "../AppStyles";
 
 import FormField from './FormField';
-
+import Spinner from './Spinner';
 /*
   * formData : data fields from API
   * data : data to submit to API POST /cases 
@@ -112,6 +112,7 @@ class CaseForm extends React.Component{
     render(){
         let {formData, data} = this.state
         return (
+          this.state.formData.length>0?
             <SafeAreaView style={styles.container}>
               <ScrollView stlye={styles.formField}>
                     {
@@ -127,6 +128,7 @@ class CaseForm extends React.Component{
                     }
               </ScrollView>
             </SafeAreaView>
+            :<Spinner/>
         )
     }
 }

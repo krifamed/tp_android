@@ -4,6 +4,8 @@ import { SafeAreaView, FlatList, StyleSheet, View } from "react-native";
 import AsyncStorage from '@react-native-community/async-storage';
 import { Container, Header, Content, Card, CardItem, Text, Icon, Right, Left } from 'native-base';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import Spinner from './Spinner';
+
 
 function Item({item, onSelect}){
     return (
@@ -54,18 +56,19 @@ class Cases extends React.Component{
 
     render(){
         return (
+            this.state.cases.length>0?
             <SafeAreaView>
-                <Text>Cases ui</Text>
                 <FlatList
-                     data={this.state.cases}
-                     renderItem={({item})=><Item 
-                         item={item}
-                         onSelect={this.onSelect}
-                     />}
-                     keyExtractor={(item) => item.tas_uid}
-
+                    data={this.state.cases}
+                    renderItem={({item})=><Item 
+                    item={item}
+                    onSelect={this.onSelect}
+                    />}
+                    keyExtractor={(item) => item.tas_uid}
                 />
             </SafeAreaView>
+            : <Spinner/>
+                
         )
     }
 }

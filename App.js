@@ -11,6 +11,8 @@ import Cases from './src/components/Cases';
 import CaseForm from './src/components/CaseForm';
 import AsyncStorage from '@react-native-community/async-storage';
 
+import Spinner from './src/components/Spinner'
+
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -67,6 +69,7 @@ class App extends React.Component{
     ])
     return(
       <Root>
+        { this.state.token?
         <NavigationContainer>
           <Stack.Navigator 
             screenOptions={{
@@ -85,6 +88,8 @@ class App extends React.Component{
             <Stack.Screen name="Drawer" component={DrawerStack}/>
           </Stack.Navigator>
         </NavigationContainer>
+        :<Spinner/>
+        }
       </Root>
     )
   }
